@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '2.2.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.mindex'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	//adding swagger for a built-in ui for rapid endpoint testing. visit localhost:8080/swagger-ui/index.html
+	implementation "org.springdoc:springdoc-openapi-ui:1.7.0"
+
+	//the spring-boot starter pulled is pulling a vulnerable log4j dependency. this overrides to a safe version.
+	implementation "org.apache.logging.log4j:log4j-to-slf4j:2.17.1"
+	implementation "org.apache.logging.log4j:log4j-api:2.17.1"
+
+	implementation ('org.springframework.boot:spring-boot-starter-web')
+	implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
+	testImplementation ('org.springframework.boot:spring-boot-starter-test')
+	implementation (group: 'de.bwaldvogel', name: 'mongo-java-server', version: '1.25.0')
+}
